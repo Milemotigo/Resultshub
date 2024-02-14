@@ -4,10 +4,11 @@ from django.core.validators import FileExtensionValidator
 
 
 class College(models.Model):
-    name = models.CharField(max_length=300, unique=True)
+    name = models.CharField(max_length=250, unique=True)
     email = models.EmailField(max_length=100, unique=True)
     address = models.CharField(max_length=300)
     phone = models.CharField(max_length=20, unique=True)
+    profile_picture = models.ImageField(upload_to='profile_picture/Colleges', default='default_user_icon.png', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])])
 
 
 class Department(models.Model):
@@ -20,15 +21,16 @@ class Department(models.Model):
     
 
 class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='college_student')
     email = models.EmailField(max_length=254, unique=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     student_id = models.IntegerField(unique=True)
+    matric_number = models.CharField(max_length=50, unique=True)
     profile_picture = models.ImageField(upload_to='profile_picture/Students', default='default_user_icon.png', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])])
 
 
 class Staff(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='college_staff')
     email = models.EmailField(max_length=254, unique=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     staff_id = models.IntegerField(unique=True)
@@ -56,6 +58,7 @@ class Result(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
     course_code = models.CharField(max_length=100)
     course_title = models.CharField(max_length=100)
     course_unit = models.IntegerField()
