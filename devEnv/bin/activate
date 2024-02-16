@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/gibexz/projects/ResultsHubProject/Resultshub/devEnv"
+VIRTUAL_ENV="/data/data/com.termux/files/home/Resultshub/devEnv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

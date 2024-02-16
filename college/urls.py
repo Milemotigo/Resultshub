@@ -1,3 +1,7 @@
 from django.urls import path
-# from generics import views
+from .views import school_view
+
+urlpatterns = [
+    path('', school_view, name='school'),
+]
 

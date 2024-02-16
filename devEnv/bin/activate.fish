@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/gibexz/projects/ResultsHubProject/Resultshub/devEnv"
+set -gx VIRTUAL_ENV "/data/data/com.termux/files/home/Resultshub/devEnv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

@@ -1,5 +1,13 @@
 from django.contrib import admin
-from .models import College, Department, Student, Staff, Session, Semester, Result
+from college.models import (College,
+                            Department,
+                            Session,
+                            Semester
+                            )
+from student.models import Student
+from staff.models import Staff
+from result.models import Result
+
 
 admin.site.register(College)
 admin.site.register(Department)

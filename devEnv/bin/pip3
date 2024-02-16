@@ -1,4 +1,4 @@
-#!/home/gibexz/projects/ResultsHubProject/Resultshub/devEnv/bin/python3
+#!/data/data/com.termux/files/home/Resultshub/devEnv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
