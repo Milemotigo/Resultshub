@@ -1,9 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
+from generics.models import collegeUser
 from django.core.validators import FileExtensionValidator
 
 
 class College(models.Model):
+    user = models.OneToOneField(collegeUser, on_delete=models.CASCADE)
     name = models.CharField(max_length=250, unique=True)
     email = models.EmailField(max_length=100, unique=True)
     address = models.CharField(max_length=300)
