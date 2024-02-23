@@ -21,6 +21,18 @@ class Result(models.Model):
     level = models.IntegerField()
     remark = models.CharField(max_length=100)
     date = models.DateTimeField(auto_now_add=True)
+    update = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'{self.student} - {self.session} - Semester {self.semester} - {self.course_title} - Level {self.level} - {self.grade}'
+
+class Token(models.Model):
+    token_code = models.CharField(max_length=100, unique=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=20, choices=[('unused', 'Unused'), ('used', 'Used')], default='unused')
+    date_purchased = models.DateTimeField(auto_now_add=True)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.token_code
+
