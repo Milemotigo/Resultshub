@@ -13,3 +13,7 @@ class Student(models.Model):
     student_id = models.IntegerField(unique=True)
     matric_number = models.CharField(max_length=50, unique=True)
     profile_picture = models.ImageField(upload_to='profile_picture/Students', default='default_user_icon.png', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])])
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
