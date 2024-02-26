@@ -1,5 +1,5 @@
 from django.contrib import admin
-from college.models import (College,
+from college.models import (Colleges,
                             Department,
                             Session,
                             Semester
@@ -9,7 +9,7 @@ from staff.models import Staff
 from result.models import Result
 
 
-admin.site.register(College)
+admin.site.register(Colleges)
 admin.site.register(Department)
 admin.site.register(Student)
 admin.site.register(Staff)
