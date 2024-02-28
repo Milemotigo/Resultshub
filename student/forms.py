@@ -1,9 +1,8 @@
 from django import forms
-from .models import Student
+from student.models import Student
 
 class StudentRegistrationForm(forms.ModelForm):
-    '''form for student registration'''
-
     class Meta:
         model = Student
-        fields = ['user', 'department', 'matric_number', 'profile_picture']
+        fields = ['username', 'email', 'matric_number', 'address', 'bio', 'phone_number', 'birth_date', 'address', 'profile_picture']
+
