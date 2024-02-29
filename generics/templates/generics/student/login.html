@@ -24,13 +24,13 @@
 					<form method='post' action="{% url 'student:login' %}">
 					    {% csrf_token %}
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" type="" placeholder="" />
-                                                <label for="inputEmail">Mat no.</label>
-                                            </div>
-                                            <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputPassword" type="password" placeholder="Password" />
-                                                <label for="inputPassword">Password</label>
-                                            </div>
+					    {% for fm in form %}
+					    <div class="row mb-3">
+                                                {{ fm }}
+						<label for="{{ fm.id_for_label }}">{{ fm.label }}</label>
+						<small class="text-danger">{{fm.errors|striptags}}</small>
+					        </div>
+					    {% endfor %}
                                             <div class="form-check mb-3">
                                                 <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
                                                 <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
