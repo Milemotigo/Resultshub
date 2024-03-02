@@ -25,7 +25,7 @@
 					    {% csrf_token %}
 					    {% for fm in form %}
 					    <div class="form-floating mb-3">
-					    <div class="row mb-3">
+					        <div class="row mb-3">
                                                 {{ fm }}
 						<label for="{{ fm.id_for_label }}">{{ fm.label }}</label>
 						<small class="text-danger">{{fm.errors|striptags}}</small>
