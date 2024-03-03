@@ -1,3 +1,6 @@
+{% extends 'generics/student/index.html' %}
+{% block title %} buy token {% endblock title %}
+{% block content %}
 <div class="tips">
 Payment card number: (4) VISA, (51 -> 55) MasterCard, (36-38-39) DinersClub, (34-37) American Express, (65) Discover, (5019) dankort
 </div>
@@ -34,3 +37,4 @@ Payment card number: (4) VISA, (51 -> 55) MasterCard, (36-38-39) DinersClub, (34
     <button class="buy"><i class="material-icons">lock</i> Pay --.-- €</button>
   </div>
 </div>
+{% endblock content %}
