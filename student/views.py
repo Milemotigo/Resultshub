@@ -38,7 +38,7 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('result:results')
+                return redirect('result:dashboard')
             else:
                 error_message = 'username or password does not exist'
                 return render(request, 'generics/student/login.html', {'form': form})
@@ -49,4 +49,9 @@ def login_view(request):
 @login_required
 def logout_view(request):
     logout(request)
-    return redirect('student:login') 
+    return redirect('student:login')
+
+@login_required
+def dasboard_view(request):
+    user = CustomUser.objects.all()
+    return render(request, 'generics/student/index.html' , {user: 'user'})

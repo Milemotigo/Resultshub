@@ -1,18 +1,36 @@
 {% extends 'generics/student/index.html' %}
 {% block title %} Results {% endblock title %}
 {% block content %}
-			<div class="card mb-4">                                             <div class="card-header">                                           <i class="fas fa-table me-1"></i>                                                                                               DataTable Example
+			<div class="card mb-4">
+			    <div class="card-header">
+				<div class="position-relative">
+				    <div class="position-absolute top-0 start-0">
+					<img src='#' alt='school log.jpg'>
+				    </div>
+				    <div class="position-absolute top-0 end-0">
+					<img src='#' alt='student image.jpg'>
+				    </div>
+				</div>
+				<div class='text-center'>
+				    <h1>SCHOOL NAME</h1>
+				    <h2>REGISTERED COURSES AND RESULTS</h2>
+				    <h3>SCHOOL SESSION</h3>
+				    <p>school session</p>
+				    <>
+				</div>
+				<i class="fas fa-table me-1"></i>
+				DataTable Example
 			    </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>COURSE CODE</th>
+                                            <th>COURSE TITLE</th>
+                                            <th>COURSE UNIT</th>
+                                            <th>SCORE</th>
+                                            <th>TOTAL SCORE</th>
+                                            <th>GRADE</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
