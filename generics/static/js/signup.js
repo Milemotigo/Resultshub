@@ -28,7 +28,7 @@ $(document).ready(function() {
         const username = $('#username').val();
         const password = $('#password').val();
 
-        // alert('Hello');
+        console.log(crsftoken);
 
         $.ajax({
             url: `${api_url}college/college_signup/`,
@@ -50,7 +50,7 @@ $(document).ready(function() {
             error: function(xhr, errmsg, err) {
                 console.log(err);
                 console.log(JSON.stringify(xhr.responseJSON));
-                alert("error signing up. Please try again.")
+                // alert("error signing up. Please try again.")
             },
         })
     });
