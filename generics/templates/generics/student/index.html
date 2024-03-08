@@ -32,6 +32,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+			    <li><a class="dropdown-item" href="{% url 'student:update' %}">Profile</a></li>
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
 			<li><a class="dropdown-item" href="{% url 'result:results' %}">Results</a></li>
                         <li><hr class="dropdown-divider" /></li>
@@ -52,7 +53,7 @@
                             <div class="sb-sidenav-menu-heading">Core</div>
                             <a class="nav-link" href="generics/template/student/index.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+				Dashboard
                             </a>
 			    <a class="nav-link" href="{% url 'result:buy-card' %}">
 			    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>

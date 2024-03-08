@@ -7,9 +7,14 @@ class StudentRegistrationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = CustomUser
         fields = ('username', 'phone_number', 'birth_date')  # Exclude confirm_password from fields
+        placeholders = {
+            'username': 'Username',
+            'phone_number': 'Phone Number',
+            'birth_date': 'Birth Date',
+        }
 
         widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'username': forms.TextInput(attrs={'class': 'form-control form-control-md'}),
             'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
             'birth_date': forms.DateInput(attrs={'class': 'form-control'}),
         }
