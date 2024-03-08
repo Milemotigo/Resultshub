@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from generics.models import CustomUser
+from student.models import Student
 
 class StudentRegistrationForm(UserCreationForm):
 
@@ -40,3 +41,18 @@ class StudentLoginForm(forms.Form):
 
     username = forms.CharField(label='Username/Email', max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+class StudentProfileForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields=['first_name', 'last_name', 'matric_number', 'city', 'phone', 'state', 'zipcode', 'profile_picture']
+        # bootstrap classes
+        widgets={
+        'first_name':forms.TextInput(attrs={'class':'form-control'}),
+        'last_name':forms.TextInput(attrs={'class':'form-control'}),
+        'matric_number':forms.TextInput(attrs={'class':'form-control'}),
+        'city':forms.TextInput(attrs={'class':'form-control'}),
+        'phone':forms.NumberInput(attrs={'class':'form-control'}),
+        'state':forms.Select(attrs={'class':'form-control'}),
+        'zipcode':forms.TextInput(attrs={'class':'form-control'}),
+        }
