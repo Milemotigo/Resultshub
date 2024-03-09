@@ -45,14 +45,14 @@ class StudentLoginForm(forms.Form):
 class StudentProfileForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields=['first_name', 'last_name', 'matric_number', 'city', 'phone', 'state', 'zipcode', 'profile_picture']
+        fields=['first_name', 'last_name', 'matric_number', 'city', 'state', 'zipcode', 'profile_picture']
         # bootstrap classes
         widgets={
         'first_name':forms.TextInput(attrs={'class':'form-control'}),
         'last_name':forms.TextInput(attrs={'class':'form-control'}),
         'matric_number':forms.TextInput(attrs={'class':'form-control'}),
         'city':forms.TextInput(attrs={'class':'form-control'}),
-        'phone':forms.NumberInput(attrs={'class':'form-control'}),
+        #'phone':forms.NumberInput(attrs={'class':'form-control'}),
         'state':forms.Select(attrs={'class':'form-control'}),
         'zipcode':forms.TextInput(attrs={'class':'form-control'}),
         }

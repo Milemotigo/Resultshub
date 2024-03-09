@@ -5,6 +5,9 @@
     <h3>Welcome <span class="text-capitalize">{{request.user}}</span></h3>
     
         <div class="col-sm-2 border-end">
+	    {% for st in form %}
+	        {{ st.first_name }}
+	    {% endfor %}
             <ul class="list-unstyled">
                 <li class="d-grid"><a href="#" class="btn btn-primary">Profile</a></li>
                 <li class="d-grid"><a href="#" class="btn">Address</a></li>
@@ -33,6 +36,6 @@
                     </div>
                     {% endfor %}
                 {% endif %}
-	    </div>
+		</div>
         </form>
 {% endblock content %}

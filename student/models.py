@@ -44,14 +44,15 @@ STATE_CHOICES = (
 )
 
 class Student(models.Model):
+    id = models.AutoField(primary_key=True)
     #department = models.ForeignKey(Department, on_delete=models.CASCADE
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, default=None)
     first_name = models.CharField(max_length=250, unique=False, null=True)
     last_name = models.CharField(max_length=250, unique=False, null=True)
-    state = models.CharField(choices=STATE_CHOICES, max_length=300, default='Abia Umuahia')
+    state = models.CharField(choices=STATE_CHOICES, max_length=300, default='Delta Asaba')
     city = models.CharField(max_length=200, null=True)
-    zipcode = models.IntegerField()
+    zipcode = models.IntegerField(null=True)
     matric_number = models.CharField(max_length=50, unique=True, blank=True, null=True)
-    phone = models.IntegerField(default=0, unique=True)
+    #phone = models.IntegerField(default=0, unique=True)
     profile_picture = models.ImageField(upload_to='profile_picture/Students', default='default_user_icon.png', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])])
 

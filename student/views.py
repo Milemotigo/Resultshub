@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from student.forms import StudentRegistrationForm, StudentLoginForm, StudentProfileForm
 from django.views.generic.edit import CreateView
 from generics.models import CustomUser
@@ -9,6 +9,8 @@ from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.contrib import messages
+from student.models import Student
+from django.http import HttpResponseForbidden
 
 class StudentRegistrationView(CreateView):
     template_name = 'generics/student/register.html'
@@ -69,22 +71,21 @@ class StudentProfileView(View):
 
         if form.is_valid():
             user = request.user
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            matric_number = form.cleaned_data['matric_number']
+            city = form.cleaned_data['city']
+            #student.phone = form.cleaned_data['phone']
+            state = form.cleaned_data['state']
+            zipcode = form.cleaned_data['zipcode']
 
-            student = Student.object.get('user')
-
-            student.first_name = form.cleaned_data['first_name']
-            student.last_name = form.cleaned_data['last_name']
-            student.matric_number = form.cleaned_data['matric_number']
-            student.city = form.cleaned_data['city']
-            student.phone = form.cleaned_data['phone']
-            student.state = form.cleaned_data['state']
-            student.zipcode = form.cleaned_data['zipcode']
+            student = Student(user=user, first_name=first_name, last_name=last_name, matric_number=matric_number, city=city, state=state, zipcode=zipcode)
 
             student.save()
             messages.success(request, 'Congratulations profile updated successfully')
 
         else:
             messages.warning(request, 'Invalid input data')
-            return redirect('student:dashboard')
+            return redirect('student:profile')
         return render(request, 'generics/student/student_profile.html', locals())
 
