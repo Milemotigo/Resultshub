@@ -61,11 +61,20 @@ def dasboard_view(request):
     return render(request, 'generics/student/dashboard.html' , {user: 'user'})
 
 class StudentProfileView(View):
+    '''student profile'''
+    def get(self, request):
+        #form = StudentProfileForm()
+        student = Student.objects.all()
+        for st in student:
+            print(st.first_name)
+        context = {'student':student}
+        return render(request, 'generics/student/student_profile.html', context)
+
+class StudentUpdateView(View):
     '''Update the student'''
     def get(self, request):
         form = StudentProfileForm()
-        return render(request, 'generics/student/student_profile.html', locals())
-
+        return render(request, 'generics/student/student_update.html', locals())
     def post(self, request):
         form = StudentProfileForm(request.POST)
 
@@ -79,13 +88,23 @@ class StudentProfileView(View):
             state = form.cleaned_data['state']
             zipcode = form.cleaned_data['zipcode']
 
-            student = Student(user=user, first_name=first_name, last_name=last_name, matric_number=matric_number, city=city, state=state, zipcode=zipcode)
+            student = Student(
+                    user=user,
+                    first_name=first_name,
+                    last_name=last_name,
+                    matric_number=matric_number,
+                    city=city,
+                    state=state,
+                    zipcode=zipcode
+                    )
 
             student.save()
+            print(student.first_name)
             messages.success(request, 'Congratulations profile updated successfully')
+            return redirect('student:profile')
 
         else:
             messages.warning(request, 'Invalid input data')
-            return redirect('student:profile')
-        return render(request, 'generics/student/student_profile.html', locals())
+            return redirect('student:update')
+        return render(request, 'generics/student/student_update.html', locals())
 

@@ -1,41 +1,13 @@
 {% extends 'generics/student/index.html' %}
-{% load static %}
-{% block title %}Profile{% endblock title%}
+{% block title %} profile {% endblock title%}
 {% block content %}
-    <h3>Welcome <span class="text-capitalize">{{request.user}}</span></h3>
-    
-        <div class="col-sm-2 border-end">
-	    {% for st in form %}
-	        {{ st.first_name }}
-	    {% endfor %}
-            <ul class="list-unstyled">
-                <li class="d-grid"><a href="#" class="btn btn-primary">Profile</a></li>
-                <li class="d-grid"><a href="#" class="btn">Address</a></li>
-            </ul>
-	</div>
-	<form class="row g-3" action="{% url 'student:profile' %}" method="post">
-	    <div class="col-md-6">
-                {% csrf_token %}
-                <!-- manually dispaly the form field with the help of for loop -->
-                {% for fm in form %}
-                    {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small> <br>
-                {% endfor %}
-                <div class="col-12 mt-3">
-			<button type="submit" class="btn btn-primary">Update</button>
-                </div>
-                {% if form.non_field_error %}
-                    {% for error in form.non_field_error %}
-                    <p class="alert.alert-danger.my-3">{{error}}</p>
-                    {%endfor%}
-                {%endif%}
+<div class="card">
+	<img src="{{ student.profile_photo }}" class="card-img-top" alt="...">
 
-                {% if messages %}
-                    {% for msg in messages %}
-                    <div class="alert alert-{{msg.tags}}" role="alert">
-                        {{msg}}
-                    </div>
-                    {% endfor %}
-                {% endif %}
-		</div>
-        </form>
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="{% url 'student:update' %}" class="btn btn-primary">Update Profile</a>
+  </div>
+</div>
 {% endblock content %}
