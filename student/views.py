@@ -57,8 +57,8 @@ def logout_view(request):
 
 @login_required
 def dasboard_view(request):
-    user = CustomUser.objects.all()
-    return render(request, 'generics/student/dashboard.html' , {user: 'user'})
+    student = Student.objects.all()
+    return render(request, 'generics/student/dashboard.html' , {student: 'student'})
 
 class StudentProfileView(View):
     '''student profile'''
@@ -66,45 +66,46 @@ class StudentProfileView(View):
         #form = StudentProfileForm()
         student = Student.objects.all()
         for st in student:
-            print(st.first_name)
+            print(st)
         context = {'student':student}
         return render(request, 'generics/student/student_profile.html', context)
 
 class StudentUpdateView(View):
-    '''Update the student'''
-    def get(self, request):
-        form = StudentProfileForm()
-        return render(request, 'generics/student/student_update.html', locals())
-    def post(self, request):
-        form = StudentProfileForm(request.POST)
+    def get(self, request, id):
+        student = get_object_or_404(Student, id=id)
+        form = StudentProfileForm(instance=student)
+        context = {
+                'std':student,
+                'form':form,
+                'student_id':id
+                }
+        return render(request, 'generics/student/student_update.html', context)
 
+    def post(self, request, id):
+        student = Student.objects.get(id=id)
+        form = StudentProfileForm(request.POST, instance=student)
         if form.is_valid():
-            user = request.user
-            first_name = form.cleaned_data['first_name']
-            last_name = form.cleaned_data['last_name']
-            matric_number = form.cleaned_data['matric_number']
-            city = form.cleaned_data['city']
-            #student.phone = form.cleaned_data['phone']
-            state = form.cleaned_data['state']
-            zipcode = form.cleaned_data['zipcode']
-
-            student = Student(
-                    user=user,
-                    first_name=first_name,
-                    last_name=last_name,
-                    matric_number=matric_number,
-                    city=city,
-                    state=state,
-                    zipcode=zipcode
-                    )
-
-            student.save()
-            print(student.first_name)
-            messages.success(request, 'Congratulations profile updated successfully')
+            form.save()
+            messages.success(request, 'Congratulations! Profile updated successfully.')
             return redirect('student:profile')
-
         else:
-            messages.warning(request, 'Invalid input data')
-            return redirect('student:update')
-        return render(request, 'generics/student/student_update.html', locals())
+            messages.warning(request, 'Invalid input data.')
+            return redirect('student:update', id=id)
+
+"""
+class StudentUpdateView(View):
+    template_name = 'generics/student/student_update.
+html'
+    def post(request, id):
+        student = Student.objects.get(id=id)
+
+        f_name = request.POST['first_name']
+        l_name = request.POST['last_name']
+
+        student.first_name = f_name
+        student.last_name = l_name
+        student.save()
+        return redirect('student:update')
+
+"""
 

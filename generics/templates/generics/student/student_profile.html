@@ -1,13 +1,23 @@
 {% extends 'generics/student/index.html' %}
 {% block title %} profile {% endblock title%}
 {% block content %}
+<div class='alert' mt-4>
+    {% if messages %}
+    {% for msg in messages %}
+	<div class="alert alert-{{msg.tags}}" role="alert">
+	{{msg}}
+	</div>
+    {% endfor %}
+    {% endif %}
+</div>
 <div class="card">
-	<img src="{{ student.profile_photo }}" class="card-img-top" alt="...">
+	<img src="{{ user.profile_photo }}" class="card-img-top" alt="...">
 
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
+	  <h5 class="card-title">{{ user.username }}</h5>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="{% url 'student:update' %}" class="btn btn-primary">Update Profile</a>
+    <p> {{ user.id }} </p>
+    <a href={% url "student:update" user.id %} class="btn btn-primary">Update Profile</a>
   </div>
 </div>
 {% endblock content %}

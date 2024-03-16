@@ -4,25 +4,34 @@ from generics.models import CustomUser
 from student.models import Student
 
 class StudentRegistrationForm(UserCreationForm):
-
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ('username', 'phone_number', 'birth_date')  # Exclude confirm_password from fields
+        #fields = '__all__'
+        fields = ('username', 'email',)
         placeholders = {
-            'username': 'Username',
-            'phone_number': 'Phone Number',
-            'birth_date': 'Birth Date',
+            'username': 'Username'
+            #'phone_number': 'Phone Number',
+            #'birth_date': 'Birth Date',
         }
 
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control form-control-md'}),
-            'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
-            'birth_date': forms.DateInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control form-control-md'})
+            #'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
+            #'birth_date': forms.DateInput(attrs={'class': 'form-control'}),
         }
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['password1'] = forms.CharField(label="Password", widget=forms.PasswordInput(attrs={'class': 'form-control'}))
         self.fields['password2'] = forms.CharField(label="Confirm Password", widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit==True:
+            user.save()
+
+            Student.objects.create(user=user)
+            return user
 
 
 class StudentChangeForm(UserChangeForm):
@@ -39,7 +48,7 @@ class StudentChangeForm(UserChangeForm):
 
 class StudentLoginForm(forms.Form):
 
-    username = forms.CharField(label='Username/Email', max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    username = forms.CharField(label='username', max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
 class StudentProfileForm(forms.ModelForm):
