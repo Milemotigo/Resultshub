@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from student.forms import StudentRegistrationForm, StudentLoginForm, StudentProfileForm
 from django.views.generic.edit import CreateView
 from generics.models import CustomUser
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.views import View
@@ -62,11 +62,8 @@ def dasboard_view(request):
 
 class StudentProfileView(View):
     '''student profile'''
-    def get(self, request):
-        #form = StudentProfileForm()
-        student = Student.objects.all()
-        for st in student:
-            print(st)
+    def get(self, request, id):
+        student = get_object_or_404(Student, id=id)
         context = {'student':student}
         return render(request, 'generics/student/student_profile.html', context)
 
@@ -75,7 +72,6 @@ class StudentUpdateView(View):
         student = get_object_or_404(Student, id=id)
         form = StudentProfileForm(instance=student)
         context = {
-                'std':student,
                 'form':form,
                 'student_id':id
                 }
@@ -87,7 +83,7 @@ class StudentUpdateView(View):
         if form.is_valid():
             form.save()
             messages.success(request, 'Congratulations! Profile updated successfully.')
-            return redirect('student:profile')
+            return redirect('student:profile', id=id)
         else:
             messages.warning(request, 'Invalid input data.')
             return redirect('student:update', id=id)
