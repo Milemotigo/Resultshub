@@ -54,5 +54,5 @@ class Student(models.Model):
     zipcode = models.IntegerField(null=True)
     matric_number = models.CharField(max_length=50, unique=True, blank=True, null=True)
     #phone = models.IntegerField(default=0, unique=True)
-    profile_picture = models.ImageField(upload_to='profile_picture/Students', default='default_user_icon.png', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])])
+    profile_picture = models.ImageField(upload_to='profile_picture/students', default='default_user_icon.png', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])])
 

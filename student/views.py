@@ -68,6 +68,7 @@ class StudentProfileView(View):
         return render(request, 'generics/student/student_profile.html', context)
 
 class StudentUpdateView(View):
+    '''update student profile'''
     def get(self, request, id):
         student = get_object_or_404(Student, id=id)
         form = StudentProfileForm(instance=student)
@@ -79,7 +80,7 @@ class StudentUpdateView(View):
 
     def post(self, request, id):
         student = Student.objects.get(id=id)
-        form = StudentProfileForm(request.POST, instance=student)
+        form = StudentProfileForm(request.POST, request.FILES, instance=student)
         if form.is_valid():
             form.save()
             messages.success(request, 'Congratulations! Profile updated successfully.')
