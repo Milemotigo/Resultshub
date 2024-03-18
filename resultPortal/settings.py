@@ -152,9 +152,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
@@ -162,4 +162,8 @@ REST_FRAMEWORK = {
 }
 
 
-APPEND_SLASH = False
+# APPEND_SLASH = False
+AUTHENTICATION_BACKENDS = [
+    'college.backends.collegeAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]

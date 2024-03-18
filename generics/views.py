@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .forms import collegeSignUpForm
 
 # Create your views here.
 
@@ -9,4 +10,5 @@ def login(request):
     return render(request, 'generics/login.html')
 
 def signup(request):
-    return render(request, 'generics/signup.html')
+    form = collegeSignUpForm()
+    return render(request, 'generics/signup.html', {'form': form})
