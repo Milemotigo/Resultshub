@@ -8,7 +8,7 @@ from django.http import HttpResponse
 
 @login_required
 def result(request):
-    mat_no = request.GET.get('matric_number')
+    mat_no = Student.objects.get('matric_number')
     try:
         if mat_no is not None:
             student = Student.objects.get(matric_number=mat_no)

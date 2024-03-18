@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.contrib import messages
 from student.models import Student
+from student.serialized import ImageResizeMixin
 from django.http import HttpResponseForbidden
 
 class StudentRegistrationView(CreateView):
@@ -57,52 +58,46 @@ def logout_view(request):
 
 @login_required
 def dasboard_view(request):
-    student = Student.objects.all()
+    student = get_object_or_404(Student)
     return render(request, 'generics/student/dashboard.html' , {student: 'student'})
 
 class StudentProfileView(View):
     '''student profile'''
-    def get(self, request, id):
-        student = get_object_or_404(Student, id=id)
+    def get(self, request, user_id):
+        student = get_object_or_404(Student, user_id=user_id)
         context = {'student':student}
         return render(request, 'generics/student/student_profile.html', context)
 
-class StudentUpdateView(View):
+class StudentUpdateView(ImageResizeMixin, View):
     '''update student profile'''
-    def get(self, request, id):
-        student = get_object_or_404(Student, id=id)
+
+    def get(self, request, user_id):
+        student = get_object_or_404(Student, user_id=user_id)
         form = StudentProfileForm(instance=student)
         context = {
                 'form':form,
-                'student_id':id
                 }
         return render(request, 'generics/student/student_update.html', context)
 
-    def post(self, request, id):
-        student = Student.objects.get(id=id)
+    def post(self, request, user_id):
+
+        #imgPath = '../media/profile_picture/students'
+        #avePath = '../media/profile_picture/students/resized'
+        ##self.resizeImage(imgPath, savePath, width=200, height=200)
+
+        student = Student.objects.get(user_id=user_id)
         form = StudentProfileForm(request.POST, request.FILES, instance=student)
         if form.is_valid():
             form.save()
             messages.success(request, 'Congratulations! Profile updated successfully.')
-            return redirect('student:profile', id=id)
+            return redirect('student:profile', user_id=user_id)
         else:
             messages.warning(request, 'Invalid input data.')
-            return redirect('student:update', id=id)
+            return redirect('student:update', user_id=user_id)
 
-"""
-class StudentUpdateView(View):
-    template_name = 'generics/student/student_update.
-html'
-    def post(request, id):
-        student = Student.objects.get(id=id)
-
-        f_name = request.POST['first_name']
-        l_name = request.POST['last_name']
-
-        student.first_name = f_name
-        student.last_name = l_name
-        student.save()
-        return redirect('student:update')
-
-"""
+def delete_student(request, user_id):
+    '''delete a student'''
+    student = get_object_or_404(Student, user_id=user_id)
+    student.delete()
+    return redirect('student:registration')
 

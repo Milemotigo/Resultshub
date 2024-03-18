@@ -44,7 +44,7 @@ STATE_CHOICES = (
 )
 
 class Student(models.Model):
-    id = models.AutoField(primary_key=True)
+    #id = models.AutoField(primary_key=True)
     #department = models.ForeignKey(Department, on_delete=models.CASCADE
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, default=None)
     first_name = models.CharField(max_length=250, unique=False, null=True)

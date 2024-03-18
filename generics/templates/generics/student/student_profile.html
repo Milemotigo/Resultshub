@@ -10,15 +10,26 @@
     {% endfor %}
     {% endif %}
 </div>
+<!-- <img src="{{ student.profile_picture.url }}" class="img-thumbnail" width='200' height='100px' alt="..."> -->
 <div class="card">
-	<img src="{{ user.profile_photo }}" class="card-img-top" alt="...">
-
-  <div class="card-body">
-	  <h5 class="card-title">{{ user.username }}</h5>
-	  <h5 class="card-title">{{ student.first_name }}</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
-    </p>
-    <a href={% url "student:update" user.id %} class="btn btn-primary">Update Profile</a>
+	<img src="{{ student.profile_picture.url }}" class="img-thumbnail ml-5 align-self-end mt-5 " height='25%'  width='30%' alt="...">
+	<div class="card-body">
+	  <!-- <h5 class="card-title">{{ user.username }}</h5> -->
+	  {% if student.first_name %}
+	  <hr>
+	  <p> STUDENT NAME: {{ student.first_name }} {{ student.last_name }}</p>
+	  <hr>
+	  <p> MATRIC NUMBER: {{ student.matric_number }} </p>
+	  <hr>
+	  <p> ADDRESS: {{ student.state }} - ({{ student.city }}) </p>
+	  <hr>
+          <p> ZIPCODE: {{ student.zipcode }} </p>
+	  <hr>
+	  {% else %}
+	  <p> update your profile </p>
+	  {% endif %}
+    <a href={% url "student:update" user.id %} class="btn btn-primary">Update Account</a>
+    <a href={% url "student:delete" user.id %} class="btn btn-danger">Delete Account</a>
   </div>
 </div>
 {% endblock content %}

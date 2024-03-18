@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Profile{% endblock title%}
 {% block content %}
-<h3>Welcome <span class="text-capitalize">{{ request.first_name }}</span></h3>
+<h3>Welcome <span class="text-capitalize">{{ student.first_name }}</span></h3>
     
         <div class="col-sm-2 border-end">
 	    {% for st in form %}
@@ -10,10 +10,10 @@
 	    {% endfor %}
             <ul class="list-unstyled">
                 <li class="d-grid"><a href="#" class="btn btn-primary">Profile</a></li>
-                <li class="d-grid"><a href="#" class="btn">Address</a></li>
             </ul>
 	</div>
-	<form class="row g-3" action="{% url 'student:update' user.id %}" method="post">
+	<form class="row g-3" action="{% url 'student:update' user.id %}" method="post" enctype="multipart/form-data">
+	<div class="justify-content-center">
 	    <div class="col-md-6">
                 {% csrf_token %}
                 <!-- manually dispaly the form field with the help of for loop -->
@@ -36,6 +36,6 @@
                     </div>
                     {% endfor %}
                 {% endif %}
-		</div>
+	</div>
         </form>
 {% endblock content %}
